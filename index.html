@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Page</title>
+    <style>
+        body {
+            background-color: grey;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .image-container {
+            display: inline-block;
+            margin: 20px;
+        }
+
+        .image-container img {
+            width: 200px;
+            height: 200px;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.1);
+        }
+
+        .volume-control {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Interactive Images with Sound</h1>
+
+    <div class="image-container">
+        <img src="image1.jpg" alt="Image 1" class="hover-sound">
+    </div>
+    <div class="image-container">
+        <img src="image2.jpg" alt="Image 2" class="hover-sound">
+    </div>
+    <div class="image-container">
+        <img src="image3.jpg" alt="Image 3" class="hover-sound">
+    </div>
+    <div class="image-container">
+        <img src="image4.jpg" alt="Image 4" class="hover-sound">
+    </div>
+    <div class="image-container">
+        <img src="image5.jpg" alt="Image 5" class="hover-sound">
+    </div>
+
+
+
+    <div class="play-music-control">
+        <button onclick="playMusic()">Play Background Music</button>
+    </div>
+
+    <div class="volume-control">
+        <label for="volume">Set Background Music Volume (10 to 100): </label>
+        <input type="number" id="volume" min="10" max="100" value="50">
+        <button onclick="setVolume()">Set Volume</button>
+    </div>
+
+    <audio id="backgroundMusic" src="1.mp3" loop></audio>
+    <audio id="hoverSound" src="2.mp3"></audio>
+
+    <script>
+        // Play sound on image hover
+        const hoverImages = document.querySelectorAll('.hover-sound');
+        const hoverSound = document.getElementById('hoverSound');
+
+        hoverImages.forEach(image => {
+            image.addEventListener('mouseenter', () => {
+                hoverSound.currentTime = 0;
+                hoverSound.play();
+            });
+        });
+
+        // Play background music
+        const backgroundMusic = document.getElementById('backgroundMusic');
+
+        function playMusic() {
+            backgroundMusic.play();
+        }
+
+        // Set background music volume
+        function setVolume() {
+            const volumeInput = document.getElementById('volume').value;
+            const volume = Math.min(Math.max(volumeInput, 10), 100) / 100;
+            backgroundMusic.volume = volume;
+        }
+
+        // Set initial volume
+        backgroundMusic.volume = 0.5;
+    </script>
+</body>
+</html>
